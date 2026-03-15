@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Microgrid Smart Management Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+
+    <main class="dashboard">
+      <header class="hero reveal">
+        <div class="hero-text">
+          <p class="eyebrow">Big Data + Microgrid</p>
+          <h1>Smart Energy Orchestration Center</h1>
+          <p class="subtitle">
+            Real-time dispatch, data-driven forecasting, and anomaly-aware optimization for distributed energy systems.
+          </p>
+          <p id="statusText" class="status">System booting...</p>
+        </div>
+        <div class="hero-controls">
+          <label for="stationSelect">Station</label>
+          <select id="stationSelect"></select>
+          <button id="refreshBtn" type="button">Regenerate Dataset</button>
+        </div>
+      </header>
+
+      <section class="kpi-grid">
+        <article class="kpi-card reveal">
+          <p class="kpi-label">Data Points</p>
+          <h2 id="kpiPoints">-</h2>
+        </article>
+        <article class="kpi-card reveal">
+          <p class="kpi-label">Renewable Ratio</p>
+          <h2 id="kpiRenewable">-</h2>
+        </article>
+        <article class="kpi-card reveal">
+          <p class="kpi-label">Average SOC</p>
+          <h2 id="kpiSoc">-</h2>
+        </article>
+        <article class="kpi-card reveal">
+          <p class="kpi-label">Outliers Removed</p>
+          <h2 id="kpiOutlier">-</h2>
+        </article>
+      </section>
+
+      <section class="layout-grid">
+        <article class="panel trend-panel reveal">
+          <div class="panel-head">
+            <h3>Power Trend</h3>
+            <p>PV / Wind / Load, optimized with sampling and progressive rendering</p>
+          </div>
+          <div id="trendChart" class="chart"></div>
+        </article>
+
+        <article class="panel mix-panel reveal">
+          <div class="panel-head">
+            <h3>Hourly Mix (48h)</h3>
+            <p>Hourly average generation vs load profile</p>
+          </div>
+          <div id="mixChart" class="chart"></div>
+        </article>
+
+        <article class="panel soc-panel reveal">
+          <div class="panel-head">
+            <h3>Storage Health</h3>
+            <p>State of charge and station balance snapshot</p>
+          </div>
+          <div id="socChart" class="chart chart-small"></div>
+          <ul id="stationList" class="station-list"></ul>
+        </article>
+
+        <article class="panel alert-panel reveal">
+          <div class="panel-head">
+            <h3>Operational Alerts</h3>
+            <p>High load, low SOC, and peak price events</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Station</th>
+                  <th>Load</th>
+                  <th>Generation</th>
+                  <th>SOC</th>
+                  <th>Reasons</th>
+                </tr>
+              </thead>
+              <tbody id="alertTable"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <footer class="footer reveal">
+        Last update: <span id="updatedAt">-</span>
+      </footer>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+  </body>
+</html>
